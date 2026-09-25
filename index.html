@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zim Solar Charge Predictor</title>
+<link rel="stylesheet" href="style.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <h1>Zimbabwe Solar Charge Predictor</h1>
+    <p class="subtitle">Estimate how much your battery will charge from solar, anywhere in Zimbabwe.</p>
+  </header>
+
+  <main class="container">
+    <section class="card" id="setup-card">
+      <h2>1. Location</h2>
+      <div class="form-row">
+        <label for="location-select">Choose a town/city</label>
+        <select id="location-select"></select>
+      </div>
+
+      <div class="form-row">
+        <label>Or use your own coordinates</label>
+        <div class="inline-inputs">
+          <input type="number" id="lat-input" step="0.0001" placeholder="Latitude" />
+          <input type="number" id="lon-input" step="0.0001" placeholder="Longitude" />
+          <button id="use-coords-btn" type="button">Use these coordinates</button>
+        </div>
+      </div>
+
+      <h2>2. Solar Panel System</h2>
+      <div class="form-grid">
+        <div class="form-row">
+          <label for="panel-watt">Panel wattage (W, per panel)</label>
+          <input type="number" id="panel-watt" value="330" min="1" />
+        </div>
+        <div class="form-row">
+          <label for="panel-count">Number of panels</label>
+          <input type="number" id="panel-count" value="4" min="1" />
+        </div>
+        <div class="form-row">
+          <label for="panel-tilt">Panel tilt (deg from horizontal)</label>
+          <input type="number" id="panel-tilt" value="20" min="0" max="90" />
+        </div>
+        <div class="form-row">
+          <label for="panel-azimuth">Panel azimuth (0=N, 90=E, 180=S, 270=W)</label>
+          <input type="number" id="panel-azimuth" value="0" min="0" max="360" />
+        </div>
+        <div class="form-row">
+          <label for="system-losses">System losses (%) - wiring, inverter, dust, temp</label>
+          <input type="number" id="system-losses" value="15" min="0" max="60" />
+        </div>
+      </div>
+      <p class="hint">Zimbabwe is in the southern hemisphere: panels typically face north (azimuth 0deg) for best year-round output, tilted around 15-25deg.</p>
+
+      <h2>3. Battery</h2>
+      <div class="form-grid">
+        <div class="form-row">
+          <label for="battery-type">Battery chemistry</label>
+          <select id="battery-type">
+            <option value="lithium">Lithium-ion (LiFePO4)</option>
+            <option value="gel">Gel (sealed lead-acid)</option>
+            <option value="lead-acid" selected>Flooded lead-acid</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="battery-capacity">Battery bank capacity (Ah)</label>
+          <input type="number" id="battery-capacity" value="200" min="1" />
+        </div>
+        <div class="form-row">
+          <label for="battery-voltage">Battery nominal voltage (V)</label>
+          <input type="number" id="battery-voltage" value="12" min="1" />
+        </div>
+        <div class="form-row">
+          <label for="current-soc">Current state of charge (%)</label>
+          <input type="number" id="current-soc" value="40" min="0" max="100" />
+        </div>
+      </div>
+
+      <button id="predict-btn" type="button" class="primary-btn">Predict charging</button>
+      <p id="error-msg" class="error-msg" hidden></p>
+    </section>
+
+    <section class="card" id="results-card" hidden>
+      <h2>Forecast Results</h2>
+      <div id="today-summary" class="summary-box"></div>
+
+      <div class="chart-wrap">
+        <h3>Predicted daily solar energy yield (kWh)</h3>
+        <canvas id="energyChart"></canvas>
+      </div>
+
+      <div class="chart-wrap">
+        <h3>Predicted battery state of charge (%)</h3>
+        <canvas id="socChart"></canvas>
+      </div>
+
+      <div class="chart-wrap">
+        <h3>Daily irradiance on panel (kWh/m2)</h3>
+        <canvas id="irradianceChart"></canvas>
+      </div>
+
+      <div id="daily-table-wrap">
+        <h3>Day-by-day breakdown</h3>
+        <table id="daily-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Irradiance (kWh/m2)</th>
+              <th>Energy yield (kWh)</th>
+              <th>Charge added (Ah)</th>
+              <th>Est. SOC end of day (%)</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Solar radiation data from <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a>. Estimates only - actual output varies with shading, soiling, temperature, and equipment condition.</p>
+  </footer>
+
+  <script src="locations.js"></script>
+  <script src="battery.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

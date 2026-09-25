@@ -1,0 +1,28 @@
+
+const ZIM_LOCATIONS = [
+  { name: "Harare", lat: -17.8292, lon: 31.0522 },
+  { name: "Bulawayo", lat: -20.1500, lon: 28.5833 },
+  { name: "Chitungwiza", lat: -18.0128, lon: 31.0756 },
+  { name: "Mutare", lat: -18.9707, lon: 32.6709 },
+  { name: "Gweru", lat: -19.4500, lon: 29.8167 },
+  { name: "Kwekwe", lat: -18.9281, lon: 29.8149 },
+  { name: "Kadoma", lat: -18.3333, lon: 29.9167 },
+  { name: "Masvingo", lat: -20.0637, lon: 30.8277 },
+  { name: "Chinhoyi", lat: -17.3667, lon: 30.2000 },
+  { name: "Marondera", lat: -18.1853, lon: 31.5514 },
+  { name: "Norton", lat: -17.8836, lon: 30.7008 },
+  { name: "Victoria Falls", lat: -17.9243, lon: 25.8567 },
+  { name: "Hwange", lat: -18.3647, lon: 26.4986 },
+  { name: "Bindura", lat: -17.3019, lon: 31.3306 },
+  { name: "Beitbridge", lat: -22.2167, lon: 30.0000 },
+  { name: "Chegutu", lat: -18.1289, lon: 30.1444 },
+  { name: "Gwanda", lat: -20.9333, lon: 29.0000 },
+  { name: "Zvishavane", lat: -20.3333, lon: 30.0333 },
+  { name: "Kariba", lat: -16.5167, lon: 28.8000 },
+  { name: "Chipinge", lat: -20.1883, lon: 32.6236 },
+  { name: "Rusape", lat: -18.5333, lon: 32.1167 },
+  { name: "Karoi", lat: -16.8167, lon: 29.6833 },
+  { name: "Chiredzi", lat: -21.0500, lon: 31.6667 },
+  { name: "Shurugwi", lat: -19.6667, lon: 30.0000 },
+  { name: "Plumtree", lat: -20.4833, lon: 27.8167 }
+];
